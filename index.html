@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển đổi số Ngành Y tế TP.HCM: Các Bài Toán Lớn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Visualization & Content Choices:
+        - Bài toán 1 (Finance Opt.): Goal: Inform on financial digitalization. Viz: Bar chart for % adoption/online processes. Interaction: Details on click. Justification: Clear visual of targets. Lib: Chart.js.
+        - Bài toán 2 (Asset Mgmt): Goal: Inform on digital asset management. Viz: HTML/CSS diagram of centralized tracking (represented by structured text and icons). Interaction: Details on click. Justification: Visual concept. Lib: None.
+        - Bài toán 3 (IT Infra): Goal: Inform on IT upgrades. Viz: Bar chart for % facility upgrade/EMR. Interaction: Details on click. Justification: Clear visual of targets. Lib: Chart.js.
+        - Bài toán 4 (EMR): Goal: Inform on EMR adoption. Viz: Donut chart for % hospital EMR use. Interaction: Details on click. Justification: Part-to-whole representation. Lib: Chart.js.
+        - Bài toán 5 (EHR): Goal: Inform on city-wide EHR. Viz: Progress bar style for % citizen EHR (HTML/CSS). Interaction: Details on click. Justification: Simple progress tracking. Lib: HTML/CSS.
+        - Bài toán 6 (Big Data): Goal: Inform on health Big Data platform. Viz: HTML/CSS diagram of data integration (represented by structured text and icons). Interaction: Details on click. Justification: Visual concept. Lib: None.
+        - Bài toán 7 (Smart Office): Goal: Inform on smart office solutions. Viz: Bar chart for % efficiency gains. Interaction: Details on click. Justification: Clear visual of targets. Lib: Chart.js.
+        - Bài toán 8 (Smart Health Network): Goal: Inform on optimized health network. Viz: No specific chart data, will use structured text and icons for conceptual diagram. Lib: None.
+        - Bài toán 9 (High-Quality HR): Goal: Inform on human resource development. Viz: No specific chart data, will use structured text and icons for qualitative summary. Lib: None.
+        - Bài toán 10 (Smart Supply Chain): Goal: Inform on smart supply chain. Viz: No specific chart data, will use structured text and icons for conceptual diagram. Lib: None.
+        - Bài toán 11 (Proactive Prevention): Goal: Inform on preventive health. Viz: Bar chart for % population reached by prevention apps. Interaction: Details on click. Justification: Clear visual of targets. Lib: Chart.js.
+        - Bài toán 12 (Sustainable Finance): Goal: Inform on sustainable financial mechanisms. Viz: No specific chart data, will use structured text and icons for qualitative summary. Lib: None.
+        All textual content (problem statements, solutions, impacts, etc.) will be presented in clear, structured HTML sections with Tailwind styling for readability. Interactions focus on navigating between problems.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F3; /* Warm Ivory */
+            color: #333333;
+        }
+        .sidebar-item {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .sidebar-item.active, .sidebar-item:hover {
+            background-color: #4A90E2; /* Calm Blue */
+            color: white;
+        }
+        .sidebar-item.active span, .sidebar-item:hover span {
+            color: white !important;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Adjusted for better display */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        h2 {
+            color: #4A90E2; /* Calm Blue */
+        }
+        h3 {
+            color: #2c5282; /* Darker Blue for subheadings */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            background-color: #E0E7FF; /* Light Blue for tags */
+            color: #4338CA; /* Indigo for tag text */
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F7F3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A90E2;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2c5282;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="flex flex-col md:flex-row min-h-screen">
+    <aside class="w-full md:w-72 bg-white text-gray-800 p-4 md:p-6 space-y-2 md:space-y-4 shadow-lg md:min-h-screen md:sticky md:top-0">
+        <h1 class="text-2xl font-bold text-center text-[#4A90E2] mb-6">Ngành Y Tế TP.HCM</h1>
+        <nav id="sidebarNav">
+            </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#4A90E2]">Các Bài Toán Lớn Về Khoa Học, Công Nghệ, Đổi Mới Sáng Tạo và Chuyển Đổi Số</h1>
+            <p class="text-lg text-gray-600 mt-2">Ưu tiên thực hiện trong năm 2025 - Sở Y Tế TP. Hồ Chí Minh</p>
+        </header>
+
+        <div id="introduction" class="content-section p-4 md:p-6 bg-white rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Giới thiệu chung</h2>
+            <p class="text-gray-700 leading-relaxed">
+                Chào mừng bạn đến với trang thông tin tổng hợp về các bài toán lớn ngành y tế TP.HCM trong lĩnh vực khoa học công nghệ, đổi mới sáng tạo và chuyển đổi số, dự kiến ưu tiên thực hiện trong năm 2025.
+                Mục tiêu là xây dựng một nền y tế thông minh, hiện đại, minh bạch và hiệu quả, lấy người dân làm trung tâm.
+                Trang này cung cấp cái nhìn chi tiết về 12 bài toán trọng tâm, bao gồm vấn đề đặt ra, mục tiêu, giải pháp đề xuất, kết quả kỳ vọng và những tác động tích cực đến ngành y tế cũng như cộng đồng.
+                Hãy chọn một bài toán từ thanh điều hướng bên trái để khám phá chi tiết.
+            </p>
+        </div>
+
+        <div id="problemContainer"></div>
+    </main>
+
+    <script>
+        const problemsData = [
+            {
+                id: "problem1",
+                title: "Bài toán 1: Tối ưu hóa lập kế hoạch ngân sách và nguồn lực tài chính",
+                shortTitle: "1. Ngân sách & Tài chính",
+                icon: "&#128176;", // Money Bag Emoji
+                content: {
+                    intro: "Bài toán này tập trung vào việc xây dựng một hệ thống quản lý tài chính số hóa, minh bạch và hiệu quả cho toàn ngành y tế Thành phố, ứng dụng công nghệ để tối ưu hóa việc lập kế hoạch, phân bổ và sử dụng ngân sách.",
+                    problemStatement: "Xây dựng hệ thống quản lý tài chính Ngành Y tế dựa trên dữ liệu số; Tăng cường năng lực lập dự toán, phân bổ và giám sát ngân sách theo thời gian thực; Đảm bảo minh bạch, ngăn ngừa lãng phí và thất thoát tài chính công; Hỗ trợ điều hành linh hoạt trên cơ sở phân tích và dự báo tài chính bằng công nghệ.",
+                    objectives: "Phát triển hệ thống quản lý tài chính toàn Ngành y tế dựa trên dữ liệu. Nâng cao năng lực lập dự toán, điều phối ngân sách, theo dõi chi tiêu theo thời gian thực. Cải thiện minh bạch, phòng chống lãng phí, thất thoát nguồn lực tài chính. Hỗ trợ công tác điều hành tài chính linh hoạt, dựa trên cơ sở dữ liệu phân tích và dự báo.",
+                    solution: "Xây dựng hệ thống quản lý ngân sách toàn diện trên nền tảng số, tích hợp dữ liệu đa nguồn, ứng dụng AI để theo dõi - phân tích - tối ưu chi tiêu.",
+                    expectedOutcomes: [
+                        "100% các đơn vị trực thuộc sử dụng hệ thống số hóa tài chính, tích hợp tập trung.",
+                        "100% quy trình lập, phê duyệt, theo dõi và báo cáo ngân sách được thực hiện trực tuyến và minh bạch.",
+                        "Giảm thiểu tối đa thời gian xử lý thủ tục lập kế hoạch và đối chiếu tài chính thủ công.",
+                        "Tăng khả năng giám sát tài chính, ngăn chặn thất thoát/lãng phí nhờ hệ thống phân tích bất thường.",
+                        "Tạo nền tảng dữ liệu tài chính phục vụ phân tích đầu tư công, lập kế hoạch trung hạn, dài hạn Ngành Y tế."
+                    ],
+                    chartData: {
+                        labels: ["Đơn vị dùng hệ thống số", "Quy trình trực tuyến"],
+                        data: [0, 0], // Initial data, will be updated to 100% to show target
+                        targetData: [100, 100],
+                        type: 'bar',
+                        title: 'Mục tiêu Số hóa Tài chính (%)'
+                    },
+                    impact: "Ngành y tế có công cụ số điều hành tài chính minh bạch, hiệu quả. Đơn vị trực thuộc giảm tải thủ tục. Sở Y tế dễ dàng theo dõi, phân tích. Xã hội hưởng lợi từ tính công khai, minh bạch.",
+                    requirements: "Nền tảng quản lý ngân sách với các phân hệ: thu thập dữ liệu, quản lý danh mục chi, theo dõi chi thu, phân tích AI/ML, báo cáo số hóa, trực quan hóa dữ liệu. Tích hợp phần mềm kế toán, kho bạc, BHYT. Bảo mật ISO 27001.",
+                    opportunities: "Phát triển hệ thống phần mềm quản lý tài chính. Triển khai công cụ phân tích AI. Tư vấn mô hình, quy trình. Cung cấp giải pháp bảo mật, lưu trữ, đồng bộ. Hỗ trợ đào tạo, bảo trì."
+                }
+            },
+            {
+                id: "problem2",
+                title: "Bài toán 2: Số hóa quản lý và sử dụng tài sản công",
+                shortTitle: "2. Quản lý Tài sản công",
+                icon: "&#127970;", // Building Emoji
+                content: {
+                    intro: "Bài toán này nhằm xây dựng một nền tảng số hóa để quản lý tập trung và hiệu quả tài sản công trong toàn ngành y tế, từ đó nâng cao tính minh bạch và tối ưu hóa việc sử dụng các nguồn lực này.",
+                    problemStatement: "Thiết lập hệ thống quản lý tài sản công đồng bộ toàn ngành Y tế trên nền tảng số; Minh bạch hóa thông tin và hiệu suất sử dụng tài sản y tế; Nâng cao hiệu quả điều hành, đầu tư và khai thác tài sản dựa trên dữ liệu thực tế.",
+                    objectives: "Xây dựng hệ thống quản lý tài sản công đồng bộ, áp dụng công nghệ số và Big Data. Minh bạch hóa hiện trạng, lịch sử và hiệu suất sử dụng tài sản. Hỗ trợ điều hành, ra quyết định đầu tư, bảo trì và khai thác tài sản dựa trên dữ liệu.",
+                    solution: "Xây dựng hệ thống quản lý tài sản số hóa, áp dụng mã hóa QR/RFID, cảm biến IoT và phần mềm quản trị tài sản thông minh.",
+                    expectedOutcomes: [
+                        "Quản lý tập trung, hiệu quả tài sản công.",
+                        "Minh bạch thông tin tài sản.",
+                        "Giảm thất thoát, lãng phí tài sản.",
+                        "Tối ưu hóa khai thác, sử dụng tài sản.",
+                        "Báo cáo, thống kê tài sản trực quan, kịp thời."
+                    ],
+                    impact: "Cơ quan, đơn vị quản lý tài sản chính xác, dễ kiểm kê. Ngành y tế có dữ liệu phân tích hiệu suất, tăng hiệu quả đầu tư. Xã hội hưởng lợi từ minh bạch quản lý tài sản công.",
+                    requirements: "Nền tảng số quản lý tài sản (Web/App), số hóa hồ sơ tài sản, tích hợp hệ thống kế toán, đầu tư, bảo trì. Kiểm kê bằng QR/RFID/NFC, ứng dụng IoT. Công cụ phân tích, báo cáo. Bảo mật dữ liệu.",
+                    opportunities: "Phát triển phần mềm quản lý tài sản công. Số hóa dữ liệu, triển khai mã hóa, gắn thẻ. Cung cấp giải pháp theo dõi tài sản thông minh bằng cảm biến. Đào tạo, chuyển giao. Dịch vụ bảo trì, hỗ trợ."
+                }
+            },
+            {
+                id: "problem3",
+                title: "Bài toán 3: Hoàn thiện hạ tầng công nghệ số tại các cơ sở y tế",
+                shortTitle: "3. Hạ tầng Công nghệ số",
+                icon: "&#128187;", // Laptop Emoji
+                content: {
+                    intro: "Bài toán này đặt mục tiêu phát triển và duy trì một nền tảng công nghệ số vững chắc cho toàn ngành y tế, góp phần nâng cao chất lượng chăm sóc sức khỏe, tối ưu hóa vận hành và tăng cường hiệu quả quản lý.",
+                    problemStatement: "Phát triển và duy trì nền tảng số vững chắc cho Ngành y tế, góp phần nâng cao chất lượng chăm sóc sức khỏe nhân dân, tối ưu hóa vận hành hệ thống y tế và tăng cường hiệu quả quản lý nhà nước trong lĩnh vực y tế.",
+                    objectives: "Phát triển và duy trì nền tảng số vững chắc, nâng cao chất lượng chăm sóc sức khỏe, tối ưu hóa vận hành, tăng cường hiệu quả quản lý.",
+                    solution: "Đầu tư nâng cấp mạng, trung tâm dữ liệu, triển khai điện toán đám mây, liên thông các tầng thông tin.",
+                    expectedOutcomes: [
+                        "Hoàn thiện hạ tầng CNTT hiện đại tại 100% cơ sở y tế công, đảm bảo kết nối mạng tốc độ cao.",
+                        "Triển khai đồng bộ bệnh án điện tử, tích hợp định danh và chữ ký số tại 100% cơ sở khám chữa bệnh công lập.",
+                        "Quản lý, chia sẻ dữ liệu bệnh nhân tập trung, liên thông toàn ngành.",
+                        "Kết nối dữ liệu y tế với cơ sở dữ liệu dân cư quốc gia.",
+                        "Đào tạo toàn diện đội ngũ y tế về ứng dụng CNTT và chuyển đổi số.",
+                        "Thiết lập hệ thống an toàn thông tin đạt chuẩn quốc gia và quốc tế.",
+                        "Phát triển dịch vụ y tế thông minh dựa trên AI và Big Data, hướng tới y tế cá thể hóa."
+                    ],
+                     chartData: {
+                        labels: ["CSYT có hạ tầng hiện đại", "CSYT triển khai BAEĐT"],
+                        data: [0, 0],
+                        targetData: [100, 100],
+                        type: 'bar',
+                        title: 'Mục tiêu Hạ tầng và BAEĐT (%)'
+                    },
+                    impact: "Người dân tiếp cận dịch vụ y tế thuận tiện. Cơ sở y tế tối ưu quy trình, nâng cao chất lượng. Tăng hiệu quả quản lý toàn ngành. Thúc đẩy đổi mới sáng tạo.",
+                    requirements: "Nâng cấp hệ thống mạng, máy chủ, thiết bị đầu cuối, trung tâm dữ liệu. Triển khai mô hình điện toán đám mây. Đảm bảo kết nối thông suốt.",
+                    opportunities: "Tư vấn thiết kế và triển khai hạ tầng CNTT. Phát triển phần mềm. Cung cấp giải pháp an toàn thông tin. Phân tích dữ liệu, ứng dụng AI. Tập huấn, đào tạo, hỗ trợ vận hành."
+                }
+            },
+            {
+                id: "problem4",
+                title: "Bài toán 4: Đồng bộ hệ thống bệnh án điện tử (EMR)",
+                shortTitle: "4. Bệnh án điện tử (EMR)",
+                icon: "&#128196;", // Scroll Emoji
+                content: {
+                    intro: "Bài toán này hướng tới việc xây dựng và đồng bộ hóa hệ thống bệnh án điện tử trên toàn thành phố, thay thế hoàn toàn bệnh án giấy, đảm bảo dữ liệu liên thông, chuẩn hóa và bảo mật.",
+                    problemStatement: "Xây dựng đồng bộ hệ thống bệnh án điện tử toàn diện thay thế hoàn toàn bệnh án giấy tại tất cả các cơ sở y tế trên địa bàn TP; đảm bảo thông tin bệnh án được chuẩn hóa, số hóa, khả năng lưu trữ, truy xuất, chia sẻ, bảo mật thông tin bệnh án theo thời gian thực, hướng tới mô hình quản lý sức khỏe điện tử xuyên suốt vòng đời công dân.",
+                    objectives: "Xây dựng hệ thống bệnh án điện tử toàn diện thay thế bệnh án giấy. Đảm bảo thông tin chuẩn hóa, số hóa, lưu trữ, truy xuất, chia sẻ, bảo mật theo thời gian thực. Hướng tới quản lý sức khỏe điện tử xuyên suốt.",
+                    solution: "Xây dựng hệ thống bệnh án điện tử đạt chuẩn quốc tế (HL7, FHIR), tích hợp định danh điện tử, chữ ký số, bảo mật cao.",
+                    expectedOutcomes: [
+                        "100% bệnh viện công lập sử dụng bệnh án điện tử thay thế hoàn toàn bệnh án giấy; mở rộng áp dụng ra toàn hệ thống y tế.",
+                        "Dữ liệu bệnh án được liên thông, chia sẻ hiệu quả phục vụ chuyên môn và điều hành.",
+                        "Giảm sai sót, tăng tốc độ xử lý bệnh án.",
+                        "Hình thành hệ sinh thái dữ liệu y tế sẵn sàng ứng dụng AI, Big Data.",
+                        "Là nền tảng kết nối để xây dựng hồ sơ sức khỏe cá nhân điện tử toàn dân."
+                    ],
+                    chartData: {
+                        labels: ["BV công lập dùng BAEĐT", "Hệ thống y tế khác"],
+                        data: [0, 0], // Initial: 0% for BVCL, 0% for others (target will be 100% for BVCL, and a portion for others)
+                        targetData: [100, 50], // Example: 100% for public hospitals, 50% for wider system initially
+                        type: 'doughnut',
+                        title: 'Triển khai Bệnh án Điện tử (%)'
+                    },
+                    impact: "Nâng cao chất lượng khám chữa bệnh. Tối ưu quy trình, giảm chi phí, sai sót. Hỗ trợ chỉ đạo điều hành, thanh quyết toán BHYT. Tăng khả năng chia sẻ dữ liệu. Xây dựng nền y tế số toàn diện.",
+                    requirements: "Chuẩn hóa cấu trúc bệnh án (HL7, FHIR). Hệ thống EMR đa nền tảng, tích hợp HIS, LIS, PACS, BHYT. Bảo mật cao, tích hợp VNeID, chữ ký số. Cho phép truy cập có kiểm soát.",
+                    opportunities: "Phát triển nền tảng bệnh án điện tử. Triển khai giải pháp tích hợp dữ liệu. Xây dựng module định danh - xác thực - chữ ký số. Đào tạo, chuyển giao. Dịch vụ bảo trì, bảo mật, hỗ trợ."
+                }
+            },
+            {
+                id: "problem5",
+                title: "Bài toán 5: Xây dựng hồ sơ sức khỏe điện tử (EHR) toàn dân",
+                shortTitle: "5. Hồ sơ sức khỏe (EHR)",
+                icon: "&#128101;", // People Icon
+                content: {
+                    intro: "Bài toán này tập trung vào việc thiết lập một hệ thống hồ sơ sức khỏe điện tử (EHR) cho toàn bộ người dân Thành phố, tích hợp dữ liệu y tế từ nhiều nguồn để phục vụ chăm sóc sức khỏe chủ động và toàn diện.",
+                    problemStatement: "Thiết lập hệ thống hồ sơ sức khỏe điện tử toàn dân cho TP. Cập nhật tự động, xuyên suốt thông tin sức khỏe cá nhân qua mọi lần khám chữa bệnh. Tích hợp định danh điện tử, BHYT, bệnh án điện tử và các dữ liệu y tế liên quan. Hướng đến mô hình quản lý sức khỏe chủ động, toàn dân và dự phòng hiệu quả.",
+                    objectives: "Thiết lập hệ thống HSSKĐT cho toàn dân. Cập nhật tự động, xuyên suốt thông tin sức khỏe. Tích hợp VNeID, BHYT, bệnh án điện tử. Chuyển từ 'quản lý bệnh' sang 'quản lý sức khỏe', từ chữa bệnh sang dự phòng.",
+                    solution: "Tạo hồ sơ sức khỏe điện tử cá nhân, tích hợp dữ liệu khám chữa bệnh, tiêm chủng, BHYT, định danh quốc gia (VNeID).",
+                    expectedOutcomes: [
+                        "100% người dân được khởi tạo hồ sơ sức khỏe điện tử thống nhất, liên thông và truy cập mọi lúc.",
+                        "Tất cả cơ sở y tế công - tư tích hợp cập nhật dữ liệu tự động vào hệ thống.",
+                        "Hình thành bản đồ sức khỏe cộng đồng theo địa bàn, giới tính, độ tuổi.",
+                        "Giảm thời gian xử lý thủ tục hành chính trong khám chữa bệnh.",
+                        "Hỗ trợ y tế dự phòng, phát hiện sớm bệnh mãn tính, nâng cao tuổi thọ khỏe mạnh."
+                    ],
+                    progressData: {
+                        label: "Người dân có HSSKĐT",
+                        current: 0, // Initial
+                        target: 100,
+                        title: "Tiến độ Khởi tạo Hồ sơ Sức khỏe Điện tử Toàn dân (%)"
+                    },
+                    impact: "Người dân theo dõi sức khỏe trọn đời. Ngành y tế có CSDL thống nhất. Cơ sở y tế tiếp cận nhanh lịch sử bệnh án. Thúc đẩy chuyển đổi số, y tế dự phòng, thông minh, cá thể hóa.",
+                    requirements: "Hệ thống EHR chuẩn HL7, FHIR. Đồng bộ dữ liệu từ HIS, LIS, RIS/PACS, tiêm chủng. Kết nối CSDL dân cư, BHYT. Phân quyền truy cập. Giao diện thân thiện. Bảo mật ISO 27001, HIPAA. Tích hợp AI cảnh báo rủi ro.",
+                    opportunities: "Phát triển hệ thống EHR. Triển khai nền tảng tích hợp dữ liệu. Xây dựng module cảnh báo sớm, tư vấn sức khỏe AI. Đào tạo cán bộ y tế. Dịch vụ vận hành, bảo trì, nâng cấp."
+                }
+            },
+            {
+                id: "problem6",
+                title: "Bài toán 6: Xây dựng kho dữ liệu lớn ngành Y tế",
+                shortTitle: "6. Kho dữ liệu Y tế lớn",
+                icon: "&#128202;", // Bar Chart Emoji (representing data)
+                content: {
+                    intro: "Bài toán này nhằm mục tiêu thiết lập một kho dữ liệu lớn (Big Data) cho ngành y tế Thành phố, tích hợp, lưu trữ và phân tích dữ liệu y tế toàn diện để phục vụ công tác điều hành, nghiên cứu và phát triển y tế thông minh.",
+                    problemStatement: "Xây dựng kho dữ liệu lớn ngành Y tế TP.HCM tích hợp đầy đủ dữ liệu y tế đa nguồn. Hỗ trợ điều hành, hoạch định chính sách y tế dựa trên dữ liệu. Làm nền tảng triển khai AI, phân tích dự báo và điều trị cá thể hóa.",
+                    objectives: "Thiết lập kho Big Data tích hợp dữ liệu đa nguồn (EMR, EHR, xét nghiệm, hình ảnh, tiêm chủng, dịch tễ, BHYT...). Hỗ trợ ra quyết định, lập chính sách. Nền tảng cho AI, phân tích dự báo, cá thể hóa điều trị.",
+                    solution: "Thiết lập kho dữ liệu Big Data ngành Y tế, tích hợp toàn bộ hệ thống (EMR, EHR, BHYT, CDC...), triển khai AI phân tích.",
+                    expectedOutcomes: [
+                        "Kho dữ liệu lớn ngành Y tế được vận hành, tích hợp 100% dữ liệu từ các đơn vị y tế công và tư.",
+                        "Dữ liệu y tế đa nguồn được chuẩn hóa, truy xuất tức thời.",
+                        "Hệ thống phân tích thông minh cảnh báo dịch bệnh và xu hướng sức khỏe theo khu vực, độ tuổi, giới tính.",
+                        "Hỗ trợ hiệu quả cho nghiên cứu, hoạch định chính sách và quản lý toàn ngành.",
+                        "Là nền tảng chung cho các hệ thống y tế thông minh và quản lý sức khỏe cá thể hóa."
+                    ],
+                    impact: "Ngành y tế có CSDL tập trung, cập nhật, phục vụ chỉ đạo nhanh chóng. Cơ sở y tế khai thác dữ liệu nâng cao chất lượng, cảnh báo dịch. Xã hội hưởng lợi từ dịch vụ y tế thông minh. Cộng đồng nghiên cứu có môi trường dữ liệu phát triển.",
+                    requirements: "Trung tâm dữ liệu ISO/IEC 27001 hoặc đám mây an toàn. Kiến trúc dữ liệu cấu trúc và phi cấu trúc. Chuẩn dữ liệu, liên thông HIS, LIS, PACS, EMR, EHR, BHYT, CDC, VNeID. Công cụ phân tích, trực quan hóa. Ứng dụng AI, học máy. Bảo mật, quản trị dữ liệu.",
+                    opportunities: "Thiết kế, triển khai kho Big Data. Tư vấn, xây dựng kiến trúc dữ liệu mở. Phát triển công cụ phân tích, trực quan hóa, AI. Cung cấp giải pháp bảo mật. Hợp tác đào tạo, chuyển giao, hỗ trợ."
+                }
+            },
+            {
+                id: "problem7",
+                title: "Bài toán 7: Hệ thống điều hành, quản trị công sở thông minh",
+                shortTitle: "7. Quản trị Công sở thông minh",
+                icon: "&#129302;", // Robot face emoji
+                content: {
+                    intro: "Bài toán này tập trung vào việc ứng dụng công nghệ số và trí tuệ nhân tạo để xây dựng một hệ thống điều hành và quản trị công sở thông minh tại Sở Y tế, nhằm nâng cao hiệu quả hoạt động nội bộ và thúc đẩy chuyển đổi số toàn diện.",
+                    problemStatement: "Nâng cao hiệu quả điều hành và quản lý nội bộ tại Cơ quan Sở. Ứng dụng công nghệ số hiện đại (AI, IoT, Big Data…) để tối ưu nguồn lực và minh bạch hoạt động. Xây dựng mô hình “Văn phòng số” hướng tới chuyển đổi số toàn diện.",
+                    objectives: "Tăng cường hiệu quả điều hành, giám sát, phối hợp, quản lý nội bộ. Ứng dụng AI, IoT, Big Data nâng cao minh bạch, tối ưu nguồn lực, cải thiện môi trường làm việc. Xây dựng 'Văn phòng số'.",
+                    solution: "Ứng dụng công nghệ số và AI để xây dựng “Văn phòng số” – điều hành thông minh, trợ lý ảo, quản lý tài sản, công việc theo thời gian thực.",
+                    expectedOutcomes: [
+                        "Giảm 30 - 50% thời gian xử lý công việc nội bộ.",
+                        "Tăng tối thiểu 25% hiệu quả phối hợp giữa các phòng, giảm sai sót nghiệp vụ.",
+                        "Nâng cao sự hài lòng của cán bộ công chức về môi trường làm việc.",
+                        "Góp phần hiện đại hóa công sở, thúc đẩy cải cách hành chính và chuyển đổi số quốc gia."
+                    ],
+                    chartData: {
+                        labels: ["Giảm thời gian xử lý CV (%)", "Tăng hiệu quả phối hợp (%)"],
+                        data: [0, 0], // Initial data
+                        targetData: [40, 25], // Example targets: 40% reduction, 25% increase
+                        type: 'bar',
+                        title: 'Mục tiêu Hiệu quả Công sở Thông minh'
+                    },
+                    impact: "Giảm thời gian xử lý công việc. Tăng hiệu quả phối hợp, giảm sai sót. Nâng cao hài lòng cán bộ. Hiện đại hóa công sở, thúc đẩy cải cách hành chính.",
+                    requirements: "Hệ thống đa nền tảng (Web/App). Ứng dụng AI, Big Data, nhận diện giọng nói/hình ảnh. Bảo mật ISO, định danh cấp cao. Khả năng mở rộng, tích hợp module linh hoạt.",
+                    opportunities: "Phát triển hệ thống quản trị, AI, xử lý Big Data. Ưu tiên giải pháp sẵn có, tùy biến. Thiết kế, tư vấn triển khai, đào tạo."
+                }
+            },
+            {
+                id: "problem8",
+                title: "Bài toán 8: Quy hoạch và Phát triển Mạng lưới Y tế Thông minh Phân cấp và Liên kết Vùng",
+                shortTitle: "8. Mạng lưới Y tế thông minh",
+                icon: "&#127760;", // Globe with Meridians Emoji
+                content: {
+                    intro: "Bài toán này tập trung vào việc quy hoạch và phát triển một mạng lưới y tế thông minh, phân cấp và liên kết vùng, nhằm đảm bảo mọi người dân đều có thể tiếp cận dịch vụ y tế chất lượng cao một cách công bằng và hiệu quả.",
+                    problemStatement: "Khi quy mô dân số và địa bàn quản lý tăng lên, việc đảm bảo mọi người dân đều có thể tiếp cận dịch vụ y tế chất lượng cao một cách công bằng và hiệu quả trở thành một thách thức lớn. Cần một quy hoạch tổng thể, xác định rõ vai trò của từng tuyến y tế (từ cơ sở đến khu vực) và đảm bảo sự phối hợp, chuyển tuyến nhịp nhàng.",
+                    objectives: "Xây dựng mô hình phân tầng và kết nối mạng lưới y tế dựa trên phân tích dữ liệu lớn về nhu cầu y tế của từng khu vực, năng lực chuyên môn và trang thiết bị. Ứng dụng các công cụ phân tích không gian (GIS) và trí tuệ nhân tạo (AI) để tối ưu hóa việc bố trí các cơ sở y tế, phân bổ nguồn lực và dự báo nhu cầu khám chữa bệnh. Đẩy mạnh phát triển các nền tảng y tế từ xa (telehealth) để tăng cường kết nối giữa các tuyến, hỗ trợ chuyên môn từ xa.",
+                    solution: "Xây dựng mô hình phân tầng và kết nối mạng lưới y tế dựa trên phân tích dữ liệu lớn về nhu cầu y tế, năng lực chuyên môn và trang thiết bị. Ứng dụng GIS và AI để tối ưu hóa bố trí cơ sở, phân bổ nguồn lực và dự báo nhu cầu. Đẩy mạnh phát triển các nền tảng y tế từ xa (telehealth).",
+                    expectedOutcomes: [
+                        "Một mạng lưới y tế được tối ưu hóa, giảm áp lực cho các bệnh viện tuyến trên.",
+                        "Người dân dễ dàng tiếp cận dịch vụ y tế phù hợp.",
+                        "Nâng cao hiệu quả sử dụng các nguồn lực chung của toàn ngành."
+                    ],
+                    impact: "Giảm áp lực cho các bệnh viện tuyến trên. Người dân dễ dàng tiếp cận dịch vụ y tế phù hợp. Nâng cao hiệu quả sử dụng các nguồn lực chung của toàn ngành.",
+                    requirements: "Nghiên cứu và áp dụng các mô hình tài chính y tế tiên tiến, đa dạng hóa các nguồn thu cho ngành (từ ngân sách nhà nước, bảo hiểm y tế, đến các hình thức hợp tác công tư, viện trợ và các nguồn hợp pháp khác).",
+                    opportunities: "Phát triển giải pháp quản lý mạng lưới y tế, công cụ phân tích không gian (GIS), nền tảng telehealth và AI trong y tế."
+                }
+            },
+            {
+                id: "problem9",
+                title: "Bài toán 9: Phát triển Nguồn Nhân lực Y tế Chất lượng cao Đáp ứng Quy mô và Yêu cầu Mới",
+                shortTitle: "9. Nhân lực Y tế chất lượng cao",
+                icon: "&#128100;", // Bust in Silhouette Emoji
+                content: {
+                    intro: "Bài toán này nhằm phát triển một lực lượng nhân lực y tế chất lượng cao, đáp ứng được quy mô hoạt động mở rộng và yêu cầu mới về làm chủ công nghệ, quản lý y tế tiên tiến.",
+                    problemStatement: "Việc mở rộng quy mô hoạt động đòi hỏi một lực lượng nhân lực y tế không chỉ đông đảo hơn mà còn có chất lượng cao hơn, đặc biệt là các chuyên gia có khả năng làm chủ công nghệ mới và các mô hình quản lý y tế tiên tiến.",
+                    objectives: "Xây dựng chiến lược đào tạo và phát triển nhân lực y tế toàn diện (đào tạo ban đầu, liên tục, cập nhật kiến thức chuyên môn và kỹ năng ứng dụng công nghệ số). Tăng cường hợp tác quốc tế trong đào tạo, thu hút chuyên gia giỏi. Nghiên cứu và ban hành cơ chế, chính sách đãi ngộ phù hợp để thu hút và giữ chân nhân tài. Phát triển các nền tảng đào tạo trực tuyến và ứng dụng công nghệ mô phỏng.",
+                    solution: "Xây dựng chiến lược đào tạo và phát triển nhân lực y tế toàn diện. Tăng cường hợp tác quốc tế, thu hút chuyên gia. Ban hành chính sách đãi ngộ phù hợp. Phát triển các nền tảng đào tạo trực tuyến và ứng dụng công nghệ mô phỏng.",
+                    expectedOutcomes: [
+                        "Đảm bảo ngành y tế có đủ nhân lực cả về số lượng và chất lượng.",
+                        "Đáp ứng nhu cầu chăm sóc sức khỏe ngày càng tăng.",
+                        "Phù hợp với sự phát triển không ngừng của y học hiện đại."
+                    ],
+                    impact: "Đảm bảo ngành y tế có đủ nhân lực cả về số lượng và chất lượng, đáp ứng nhu cầu chăm sóc sức khỏe ngày càng tăng và sự phát triển không ngừng của y học hiện đại.",
+                    requirements: "Cần các giải pháp đào tạo và phát triển nhân lực y tế một cách toàn diện, bao gồm đào tạo ban đầu, đào tạo liên tục, cập nhật kiến thức chuyên môn và kỹ năng ứng dụng công nghệ số. Cơ chế đãi ngộ phù hợp.",
+                    opportunities: "Phát triển nền tảng đào tạo trực tuyến, ứng dụng công nghệ mô phỏng, và các giải pháp quản lý nhân sự y tế."
+                }
+            },
+            {
+                id: "problem10",
+                title: "Bài toán 10: Chuẩn hóa và Tích hợp Hệ thống Quản lý Chuỗi Cung ứng Thuốc và Vật tư Y tế Thông minh",
+                shortTitle: "10. Chuỗi cung ứng Y tế thông minh",
+                icon: "&#128666;", // Delivery Truck Emoji
+                content: {
+                    intro: "Bài toán này nhằm chuẩn hóa và tích hợp một hệ thống quản lý chuỗi cung ứng thuốc và vật tư y tế thông minh, đảm bảo tính minh bạch, hiệu quả và giảm thiểu rủi ro trong quản lý.",
+                    problemStatement: "Với quy mô lớn hơn, việc quản lý đấu thầu, mua sắm, lưu trữ và phân phối thuốc, vật tư y tế trở nên phức tạp, tiềm ẩn nguy cơ lãng phí, thiếu hụt hoặc không đảm bảo chất lượng.",
+                    objectives: "Xây dựng một hệ thống quản lý chuỗi cung ứng thuốc và vật tư y tế tập trung, được số hóa, có thể ứng dụng công nghệ blockchain để tăng cường tính minh bạch và khả năng truy xuất nguồn gốc. Ứng dụng AI và phân tích dữ liệu lớn để dự báo nhu cầu chính xác hơn, tối ưu hóa việc quản lý tồn kho và lập kế hoạch mua sắm. Xem xét việc thiết lập các trung tâm điều phối và kho vận dùng chung.",
+                    solution: "Xây dựng hệ thống quản lý chuỗi cung ứng thuốc và vật tư y tế tập trung, số hóa, ứng dụng blockchain. Ứng dụng AI và phân tích dữ liệu lớn để dự báo nhu cầu, tối ưu tồn kho và lập kế hoạch mua sắm. Thiết lập các trung tâm điều phối và kho vận dùng chung.",
+                    expectedOutcomes: [
+                        "Đảm bảo việc cung ứng thuốc và vật tư y tế luôn kịp thời, đủ số lượng, đạt chất lượng tốt với chi phí hợp lý nhất.",
+                        "Giảm thiểu thất thoát và lãng phí."
+                    ],
+                    impact: "Đảm bảo việc cung ứng thuốc và vật tư y tế luôn kịp thời, đủ số lượng, đạt chất lượng tốt với chi phí hợp lý nhất, đồng thời giảm thiểu thất thoát và lãng phí.",
+                    requirements: "Cần một hệ thống quản lý chuỗi cung ứng thuốc và vật tư y tế tập trung, được số hóa, có thể ứng dụng công nghệ blockchain. Ứng dụng AI và phân tích dữ liệu lớn để dự báo nhu cầu, tối ưu hóa quản lý tồn kho.",
+                    opportunities: "Phát triển hệ thống quản lý chuỗi cung ứng, ứng dụng blockchain, AI và Big Data trong logistics y tế."
+                }
+            },
+            {
+                id: "problem11",
+                title: "Bài toán 11: Tăng cường Y tế Dự phòng Chủ động và Nâng cao Sức khỏe Cộng đồng trên Quy mô Lớn",
+                shortTitle: "11. Y tế Dự phòng & Sức khỏe CĐ",
+                icon: "&#128134;", // Syringe Emoji
+                content: {
+                    intro: "Bài toán này tập trung vào việc tăng cường y tế dự phòng chủ động và nâng cao sức khỏe cộng đồng trên quy mô lớn, thông qua việc kiểm soát dịch bệnh, quản lý yếu tố nguy cơ và triển khai các chương trình sức khỏe dựa trên dữ liệu.",
+                    problemStatement: "Việc kiểm soát dịch bệnh, quản lý các yếu tố nguy cơ sức khỏe, triển khai các chương trình sàng lọc và nâng cao sức khỏe đòi hỏi một cách tiếp cận hệ thống, dựa trên dữ liệu và có khả năng bao phủ một cộng đồng dân cư lớn hơn và đa dạng hơn.",
+                    objectives: "Nâng cao năng lực của hệ thống giám sát dịch tễ học dựa trên dữ liệu thời gian thực, tích hợp thông tin từ nhiều nguồn khác nhau. Phát triển các ứng dụng di động và nền tảng tương tác để người dân có thể chủ động theo dõi sức khỏe cá nhân, nhận các cảnh báo sớm và khuyến nghị y tế được cá nhân hóa. Thiết kế và triển khai các chương trình can thiệp sức khỏe cộng đồng dựa trên bằng chứng khoa học. Xây dựng các cơ chế phối hợp liên ngành và liên tỉnh.",
+                    solution: "Nâng cao năng lực giám sát dịch tễ học dựa trên dữ liệu thời gian thực. Phát triển ứng dụng di động và nền tảng tương tác cho người dân. Thiết kế và triển khai chương trình can thiệp sức khỏe cộng đồng dựa trên bằng chứng khoa học. Xây dựng cơ chế phối hợp liên ngành và liên tỉnh.",
+                    expectedOutcomes: [
+                        "Nâng cao khả năng dự báo, phát hiện sớm và kiểm soát hiệu quả dịch bệnh.",
+                        "Giảm gánh nặng bệnh tật, đặc biệt là các bệnh không lây nhiễm.",
+                        "Cải thiện đáng kể các chỉ số sức khỏe chung của cộng đồng."
+                    ],
+                    chartData: {
+                        labels: ["Dân số tiếp cận ứng dụng YTDPH (%)", "Giảm gánh nặng bệnh không lây nhiễm (%)"],
+                        data: [0, 0],
+                        targetData: [70, 20], // Example targets
+                        type: 'bar',
+                        title: 'Mục tiêu Y tế Dự phòng & Sức khỏe Cộng đồng'
+                    },
+                    impact: "Nâng cao khả năng dự báo, phát hiện sớm và kiểm soát hiệu quả dịch bệnh. Giảm gánh nặng bệnh tật. Cải thiện đáng kể các chỉ số sức khỏe chung của cộng đồng.",
+                    requirements: "Cần một cách tiếp cận hệ thống, dựa trên dữ liệu và có khả năng bao phủ một cộng đồng dân cư lớn hơn và đa dạng hơn. Nâng cao năng lực giám sát dịch tễ học, phát triển ứng dụng di động, nền tảng tương tác.",
+                    opportunities: "Phát triển hệ thống giám sát dịch tễ, ứng dụng sức khỏe di động, nền tảng tương tác, và các giải pháp phân tích dữ liệu sức khỏe cộng đồng."
+                }
+            },
+            {
+                id: "problem12",
+                title: "Bài toán 12: Xây dựng Cơ chế Tài chính Y tế Bền vững, Công bằng và Hiệu quả cho Quy mô Mở rộng",
+                shortTitle: "12. Tài chính Y tế bền vững",
+                icon: "&#128181;", // Bank Emoji
+                content: {
+                    intro: "Bài toán này tập trung vào việc xây dựng một cơ chế tài chính y tế tổng thể, bền vững, công bằng và hiệu quả, đảm bảo nguồn lực đủ mạnh và được phân bổ hợp lý cho quy mô mở rộng của ngành.",
+                    problemStatement: "Bên cạnh việc tối ưu hóa lập kế hoạch và sử dụng ngân sách (như trong Bài toán 1), ngành y tế cần một cơ chế tài chính tổng thể, đảm bảo nguồn lực đủ mạnh và được phân bổ một cách công bằng khi phải phục vụ một khu vực lớn hơn với sự đa dạng về điều kiện kinh tế - xã hội.",
+                    objectives: "Nghiên cứu và áp dụng các mô hình tài chính y tế tiên tiến, đa dạng hóa các nguồn thu cho ngành. Hoàn thiện chính sách bảo hiểm y tế toàn dân, hướng tới mở rộng phạm vi bao phủ và các gói quyền lợi. Xây dựng cơ chế phân bổ ngân sách linh hoạt, dựa trên hiệu suất hoạt động và nhu cầu y tế thực tế. Thúc đẩy lộ trình tự chủ tài chính cho các đơn vị sự nghiệp y tế công lập.",
+                    solution: "Nghiên cứu và áp dụng các mô hình tài chính y tế tiên tiến, đa dạng hóa các nguồn thu. Hoàn thiện chính sách bảo hiểm y tế toàn dân. Xây dựng cơ chế phân bổ ngân sách linh hoạt. Thúc đẩy lộ trình tự chủ tài chính cho các đơn vị sự nghiệp y tế công lập.",
+                    expectedOutcomes: [
+                        "Đảm bảo nguồn lực tài chính bền vững cho hoạt động của toàn ngành y tế.",
+                        "Tăng cường khả năng tiếp cận dịch vụ của mọi người dân, đặc biệt là các nhóm yếu thế.",
+                        "Nâng cao hiệu quả sử dụng chi phí trong khám chữa bệnh và chăm sóc sức khỏe."
+                    ],
+                    impact: "Đảm bảo nguồn lực tài chính bền vững. Tăng cường khả năng tiếp cận dịch vụ của mọi người dân. Nâng cao hiệu quả sử dụng chi phí trong khám chữa bệnh và chăm sóc sức khỏe.",
+                    requirements: "Cần một cơ chế tài chính tổng thể, đảm bảo nguồn lực đủ mạnh và được phân bổ một cách công bằng. Nghiên cứu và áp dụng các mô hình tài chính y tế tiên tiến, đa dạng hóa các nguồn thu, hoàn thiện chính sách BHYT.",
+                    opportunities: "Cơ hội cho các doanh nghiệp tư vấn tài chính y tế, phát triển các mô hình hợp tác công tư, và các giải pháp quản lý tài chính hiệu quả."
+                }
+            }
+        ];
+
+        const sidebarNav = document.getElementById('sidebarNav');
+        const problemContainer = document.getElementById('problemContainer');
+        const introductionSection = document.getElementById('introduction');
+        let currentActiveChart = null;
+
+        function createSection(problem) {
+            const section = document.createElement('section');
+            section.id = problem.id;
+            section.classList.add('content-section', 'p-4', 'md:p-6', 'bg-white', 'rounded-lg', 'shadow-md');
+            
+            let outcomesHtml = problem.content.expectedOutcomes.map(item => `<li class="text-gray-700 mb-1 ml-4 list-disc">${item}</li>`).join('');
+            
+            let chartHtml = '';
+            if (problem.content.chartData) {
+                chartHtml = `<div class="mt-6 mb-6">
+                                <h3 class="text-xl font-semibold mb-3 text-center">${problem.content.chartData.title || 'Biểu đồ Kết quả Mong đợi'}</h3>
+                                <div class="chart-container">
+                                    <canvas id="chart-${problem.id}"></canvas>
+                                </div>
+                            </div>`;
+            } else if (problem.content.progressData) {
+                 chartHtml = `<div class="mt-6 mb-6">
+                                <h3 class="text-xl font-semibold mb-3 text-center">${problem.content.progressData.title}</h3>
+                                <div class="w-full bg-gray-200 rounded-full h-6 dark:bg-gray-700">
+                                    <div id="progress-bar-${problem.id}" class="bg-[#50C878] h-6 rounded-full text-center text-white font-medium leading-6" style="width: ${problem.content.progressData.current}%">${problem.content.progressData.current}%</div>
+                                </div>
+                            </div>`;
+            }
+
+
+            section.innerHTML = `
+                <header class="mb-6 border-b pb-4">
+                    <h2 class="text-3xl font-bold mb-2">${problem.title}</h2>
+                    <p class="text-md text-gray-600">${problem.content.intro}</p>
+                </header>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center">
+                            <span class="text-2xl mr-2">&#128208;</span> Vấn đề đặt ra
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">${problem.content.problemStatement}</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center">
+                            <span class="text-2xl mr-2">&#127919;</span> Mục tiêu
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">${problem.content.objectives}</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <span class="text-2xl mr-2">&#128161;</span> Giải pháp Đề xuất
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">${problem.content.solution}</p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                         <span class="text-2xl mr-2">&#127942;</span> Kết quả Mong đợi
+                    </h3>
+                    <ul class="space-y-1">${outcomesHtml}</ul>
+                    ${chartHtml}
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <span class="text-2xl mr-2">&#128200;</span> Đánh giá Tác động
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">${problem.content.impact}</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center">
+                            <span class="text-2xl mr-2">&#128221;</span> Yêu cầu Kỹ thuật/Chuyên môn
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">${problem.content.requirements}</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center">
+                            <span class="text-2xl mr-2">&#129309;</span> Những sự mong đợi từ doanh nghiệp hợp tác, hỗ trợ
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">${problem.content.opportunities}</p>
+                    </div>
+                </div>
+            `;
+            problemContainer.appendChild(section);
+        }
+
+        function renderChart(problemId, chartDataConfig) {
+            const ctx = document.getElementById(`chart-${problemId}`).getContext('2d');
+            if (currentActiveChart) {
+                currentActiveChart.destroy(); // Destroy previous chart instance
+            }
+            
+            // Animate data to targetData
+            let currentData = [...chartDataConfig.data]; // Start with initial data
+
+            currentActiveChart = new Chart(ctx, {
+                type: chartDataConfig.type,
+                data: {
+                    labels: chartDataConfig.labels,
+                    datasets: [{
+                        label: 'Tỷ lệ (%)',
+                        data: currentData,
+                        backgroundColor: chartDataConfig.type === 'doughnut' ? ['#50C878', '#FFC107', '#4A90E2', '#F44336', '#9C27B0'] : '#50C878', // Emerald Green for bars, array for doughnut
+                        borderColor: chartDataConfig.type === 'doughnut' ? ['#FFFFFF'] : '#4CAF50',
+                        borderWidth: chartDataConfig.type === 'doughnut' ? 2 : 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: chartDataConfig.type === 'bar' ? {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + "%"
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 16) {
+                                        return label.substring(0, 16) + '...';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    } : {},
+                    plugins: {
+                        legend: {
+                            position: chartDataConfig.type === 'doughnut' ? 'top' : 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null && chartDataConfig.type === 'bar') {
+                                        label += context.parsed.y + '%';
+                                    } else if (context.parsed !== null && chartDataConfig.type === 'doughnut') {
+                                         label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        onProgress: function(animation) {
+                            // This is a bit complex to animate data values directly in onProgress
+                            // For simplicity, we set data directly to targetData after a delay
+                        }
+                    }
+                }
+            });
+
+            // Animate to target data after a short delay for visual effect
+            setTimeout(() => {
+                if(currentActiveChart && currentActiveChart.data.datasets[0]){
+                    currentActiveChart.data.datasets[0].data = chartDataConfig.targetData;
+                    currentActiveChart.update();
+                }
+            }, 500);
+
+
+        }
+        
+        function updateProgressBar(problemId, progressData) {
+            const progressBar = document.getElementById(`progress-bar-${problemId}`);
+            if (progressBar) {
+                setTimeout(() => { // Delay for visual effect
+                    progressBar.style.width = `${progressData.target}%`;
+                    progressBar.textContent = `${progressData.target}%`;
+                }, 500);
+            }
+        }
+
+
+        function setActiveSection(problemId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+                section.classList.add('hidden'); // Tailwind class to hide
+            });
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            const activeSection = document.getElementById(problemId || 'introduction');
+            const activeNavItem = document.querySelector(`.sidebar-item[data-id="${problemId || 'introduction'}"]`);
+
+            if (activeSection) {
+                activeSection.classList.add('active');
+                activeSection.classList.remove('hidden'); // Tailwind class to show
+                // Scroll to the top of the content section
+                activeSection.parentElement.parentElement.scrollTop = 0; // Scroll main container
+            }
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+
+            const problem = problemsData.find(p => p.id === problemId);
+            if (problem && problem.content.chartData) {
+                renderChart(problemId, problem.content.chartData);
+            } else if (problem && problem.content.progressData) {
+                updateProgressBar(problemId, problem.content.progressData);
+            } else if (currentActiveChart) {
+                 currentActiveChart.destroy(); // Destroy chart if the new section doesn't have one
+                 currentActiveChart = null;
+            }
+        }
+
+        problemsData.forEach(problem => {
+            const navItem = document.createElement('a');
+            navItem.href = `#${problem.id}`;
+            navItem.classList.add('sidebar-item', 'block', 'p-3', 'rounded-md', 'text-gray-700', 'hover:bg-[#4A90E2]', 'hover:text-white', 'cursor-pointer', 'flex', 'items-center');
+            navItem.dataset.id = problem.id;
+            navItem.innerHTML = `<span class="text-xl mr-3">${problem.icon}</span> <span class="text-sm font-medium">${problem.shortTitle}</span>`;
+            
+            navItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                setActiveSection(problem.id);
+                // Update URL hash
+                window.location.hash = problem.id;
+            });
+            sidebarNav.appendChild(navItem);
+            createSection(problem);
+        });
+        
+        // Handle initial load based on hash or default to introduction
+        const initialHash = window.location.hash.substring(1);
+        const problemExists = problemsData.some(p => p.id === initialHash);
+
+        if (initialHash && problemExists) {
+            setActiveSection(initialHash);
+        } else {
+            setActiveSection('introduction');
+        }
+        
+        // Listen for hash changes to update content (e.g. browser back/forward)
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.substring(1);
+            const problemExists = problemsData.some(p => p.id === hash);
+            if (hash && problemExists) {
+                setActiveSection(hash);
+            } else if (!hash) { // If hash is empty (e.g. back to root)
+                 setActiveSection('introduction');
+            }
+        });
+
+    </script>
+</body>
+</html>
